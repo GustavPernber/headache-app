@@ -13,7 +13,9 @@
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
+    "sass": "^1.49.9",
     "svelte": "^3.44.0",
+    "svelte-preprocess": "^4.10.4",
     "tailwindcss": "^3.0.23"
   },
   "type": "module",

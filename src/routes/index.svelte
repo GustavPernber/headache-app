@@ -3,7 +3,7 @@
     import HomeCard from '../components/HomeCard/index.svelte'
 </script>
 
-<div class=" min-h-screen w-screen bg-appDark-300">
+<div class=" min-h-screen w-full bg-appDark-300">
 
     <HomeCard></HomeCard>
     <div>

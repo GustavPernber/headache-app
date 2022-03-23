@@ -5,13 +5,13 @@
 </script>
 
 
-<article class="bg-appDark-100 flex flex-col rounded-b-3xl  ">
+<article class="bg-appDark-200 flex flex-col rounded-b-3xl  overflow-hidden ">
 
 
-    <nav class=" px-3 py-3 flex flex-row items-center justify-between">
+    <nav class=" px-4 py-3 flex flex-row items-center justify-between">
         
         <h1 class=" text-white text-xl font-semibold">September</h1>
-        
+
         <span class="material-icons text-white text-4xl">
             settings
         </span>

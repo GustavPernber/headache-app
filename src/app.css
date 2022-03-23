@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 /*Skriv inget här. Endast för tailwindÄ*/
+
+body{
+    background: #293540;
+}

@@ -4,4 +4,4 @@
 
 
 
-<slot />
+<slot class=" overflow-hidden"/>

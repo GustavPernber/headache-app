@@ -7,7 +7,7 @@
 
     <HomeCard></HomeCard>
     <div>
-        <h2>main content</h2>
+        <h2 class=" text-white">main content</h2>
     </div>
 
     <BottomNav></BottomNav>

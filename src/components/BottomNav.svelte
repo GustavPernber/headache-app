@@ -1,18 +1,18 @@
 
-<nav class=" overflow-hidden flex flex-row justify-center gap-20 py-2 pb-4 items-center absolute bottom-0 w-full">
+<nav class=" overflow-hidden flex flex-row justify-between px-12 py-2 pb-6 items-center absolute bottom-0 w-full">
 
-    <span class="material-icons text-5xl text-white">
+    <span class="material-icons text-3xl text-white">
         insights
     </span>
 
 
-    <span class="material-icons text-6xl text-green-100">
+    <span class="material-icons text-5xl text-green-100">
         add_circle
     </span>
 
 
-    <span class="material-icons-outlined text-5xl text-white">
+    <span class="material-icons-outlined text-3xl text-white">
         event
     </span>
-        
+
 </nav>

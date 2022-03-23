@@ -5,25 +5,32 @@
 </script>
 
 
-<article class="bg-appDark-100 flex flex-col">
+<article class="bg-appDark-100 flex flex-col rounded-b-3xl  ">
 
 
-    <nav class="flex flex-row items-center justify-between">
-        <h1>September</h1>
-        <div class="h-10 w-10 bg-lightGrey"></div>
+    <nav class=" px-3 py-3 flex flex-row items-center justify-between">
+        
+        <h1 class=" text-white text-xl font-semibold">September</h1>
+        
+        <span class="material-icons text-white text-4xl">
+            settings
+        </span>
+
     </nav>
 
     <Week></Week>
 
-    <div class="w-full py-40 gap-9 flex flex-col justify-center items-center">
+    <div class="w-full  py-32 gap-9 flex flex-col justify-center items-center">
 
-        <h1 class=" text-3xl text-white">{day}</h1>
+        <h1 class=" font-bold text-4xl text-white">
+            {day}
+        </h1>
 
-        <button class=" w-56 h-14 text-white rounded-full bg-gradient-to-r from-green-100 to-green-200">
+        <button class="  text-lg shadow-lg w-56 h-14 text-white rounded-full bg-gradient-to-r from-green-100 to-green-200">
             Current headache
         </button>
 
-        <button class=" w-36 h-12 rounded-lg text-white bg-gradient-to-r from-pink-100 to-pink-200">
+        <button class=" shadow-lg w-36 h-12 rounded-lg text-white bg-gradient-to-r from-pink-100 to-pink-200">
             This day
         </button>
 

@@ -13,7 +13,7 @@
 
     <Week></Week>
 
-    <div class="w-full   min-h-[55vh] py-1 gap-9 flex flex-col justify-center items-center">
+    <div class="w-full min-h-[55vh] py-1 gap-9 flex flex-col justify-center items-center">
 
         <h1 class=" font-bold text-4xl text-white">
             {day}

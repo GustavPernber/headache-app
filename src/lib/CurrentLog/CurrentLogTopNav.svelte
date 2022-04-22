@@ -1,6 +1,12 @@
+<script>
+
+
+
+<script/>
+
 <div>
 
-    <span class="material-icons-outlined text-white">
+    <span on:click={} class="material-icons-outlined text-white">
         highlight_off
     </span>
 

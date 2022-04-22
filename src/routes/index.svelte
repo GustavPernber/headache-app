@@ -28,7 +28,7 @@
     <BottomNav></BottomNav>
 
     {#if showCurrentlog}
-        <CurrentLog></CurrentLog>
+        <CurrentLog ToggleCurrentLog={handleCurrentlog}></CurrentLog>
     {/if}
 
 </div>

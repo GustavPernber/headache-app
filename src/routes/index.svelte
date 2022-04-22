@@ -11,7 +11,7 @@
     let showCurrentlog =false
 </script>
 
-<div class=" min-h-screen w-full bg-appDark-300"
+<div class=" min-h-screen w-full bg-appDark-300 z-10"
 >
     <TopNav>
         <h1 class=" text-white text-xl font-semibold">September</h1>

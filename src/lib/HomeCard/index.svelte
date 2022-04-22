@@ -13,7 +13,7 @@
 
     <Week></Week>
 
-    <div class="w-full   min-h-[55vh] py-1 gap-9 flex flex-col justify-center items-center">
+    <div class="w-full min-h-[55vh] py-1 gap-9 flex flex-col justify-center items-center">
 
         <h1 class=" font-bold text-4xl text-white">
             {day}
@@ -24,7 +24,7 @@
             Current headache
         </button>
 
-        <button class=" shadow-lg w-36 h-12 rounded-lg text-white bg-gradient-to-r from-pink-100 to-pink-200">
+        <button class=" shadow-lg w-36 h-[2.75rem] rounded-lg text-white bg-gradient-to-r   border-2 border-green-200">
             This day
         </button>
 

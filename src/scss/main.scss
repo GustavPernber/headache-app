@@ -1,2 +1,13 @@
 //Allt här importeras. Men använd sparsamt, håll till tailwind. Detta är mest för att använda typ avancerade mixins
 //Du ska INTE starta "scss live compiler" extension
+
+$swipeUpBezier:cubic-bezier(.26,.27,.32,.97);
+
+@keyframes swipeUp{
+    from{
+        top:100vh;
+    }
+    to{
+        top: 1.5rem;
+    }
+}

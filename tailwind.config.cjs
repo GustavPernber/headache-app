@@ -8,7 +8,7 @@ module.exports = {
     // font-family: 'Poppins', sans-serif;
     //TODO ladda ner bara de fonter som faktiskt behövs
     fontFamily:{
-      'sans':['Poppns', ...defaultTheme.fontFamily.sans]
+      'sans':['Poppins', ...defaultTheme.fontFamily.sans]
     },
 
     extend: {

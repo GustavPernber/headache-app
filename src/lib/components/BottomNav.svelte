@@ -6,7 +6,7 @@
     </span>
 
 
-    <span class="material-icons text-5xl text-green-100">
+    <span class="addBtn material-icons text-5xl text-pink-200 ">
         add_circle
     </span>
 
@@ -15,4 +15,11 @@
         event
     </span>
 
+    
+
 </nav>
+
+<style lang="scss">
+   
+
+</style>

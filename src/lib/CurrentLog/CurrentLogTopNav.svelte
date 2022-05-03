@@ -1,13 +1,17 @@
 <script>
 
-
+    export let toggleCurrentLog;
 
 </script>
 
-<div>
+<div class="flex justify-between">
 
-    <span class="material-icons-outlined text-white">
+    <span on:click={toggleCurrentLog} class="m-4 text-4xl material-icons-outlined text-white cursor-pointer">
         highlight_off
     </span>
 
-</div>
+    <span class="m-4 text-4xl material-icons-outlined text-white cursor-pointer">
+        delete
+    </span>
+
+</div> 

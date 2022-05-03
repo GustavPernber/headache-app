@@ -6,11 +6,11 @@
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
 
-    const handleCurrentlog= ()=>{
+    const handleCurrentlog = ()=>{
         showCurrentlog=!showCurrentlog
     }
 
-    let showCurrentlog =false
+    let showCurrentlog = false
 </script>
 
 <div class=" min-h-screen w-full bg-appDark-300 z-10">
@@ -28,7 +28,7 @@
     <BottomNav></BottomNav>
 
     {#if showCurrentlog}
-        <CurrentLog ToggleCurrentLog={handleCurrentlog}></CurrentLog>
+        <CurrentLog toggleCurrentLog={handleCurrentlog}></CurrentLog>
     {/if}
 
 </div>

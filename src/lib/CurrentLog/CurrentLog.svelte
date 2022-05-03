@@ -1,10 +1,11 @@
 <script>
+    export let toggleCurrentLog
     import CurrentLogTopNav from './CurrentLogTopNav.svelte';
 </script>
 
 <div class="wrapper h-[calc(100vh-1.75rem)] w-full bg-appDark-300 absolute bottom-0   top-6 rounded-t-2xl z-20">
 
-    <CurrentLogTopNav />
+    <CurrentLogTopNav {toggleCurrentLog} />
 
 </div>
 

@@ -9,8 +9,8 @@
     let timeButtons=[
         {name:"Custom", value:"custom", selected:false },
         {name:"Now", value:"now", selected:true},
-        {name:"30 min ago", value:"30_min_ago", selected:false },
-        {name:"1 hour ago", value:"1_hour_ago", selected:false }
+        {name:"30m ago", value:"30_min_ago", selected:false },
+        {name:"1h ago", value:"1_hour_ago", selected:false }
 
     ]
 
@@ -40,44 +40,42 @@
 
 </script>
 
-<div class=" flex flex-col wrapper h-[calc(100vh-1.75rem)] w-full bg-appDark-300 absolute bottom-0 top-6 rounded-t-2xl z-20 p-4">
+<div class=" text-white flex gap-20 flex-col wrapper h-[calc(100vh-1.75rem)] w-full bg-appDark-300 absolute bottom-0 top-6 rounded-t-2xl z-20 p-5">
 
     <CurrentLogTopNav {toggleCurrentLog} />
     <div class="flex flex-col">
-        <h1 class="self-center text-2xl">How's the pain?</h1>
-        <div class="grid grid-cols-[1rem_1fr_1rem] m-2">
+
+        <h1 class="self-center text-2xl py-3">How's the pain?</h1>
+
+        <div class="grid grid-cols-[1rem_1fr_1rem]">
+
             <p class="self-center">1</p>
             <RangeSlider float=true values={[2]} step={1} min={1} max={10} id="slider"/>
             <p class="self-center">10</p>
-        </div>
-    </div>
-    <div>
-        <h1 class="text-2xl">Time</h1>
 
-        <form class="grid grid-rows-2 grid-cols-3 m-2 gap-5">
-            <p class="col-span-2" >When did it start?</p>
+        </div>
+
+    </div>
+
+
+    <div>
+        <h1 class="text-2xl py-3">Time</h1>
+
+        <form class="grid grid-rows-2 grid-cols-3 gap-5">
+            <p class="col-span-2 self-center text-lightGrey text-base" >When did it start?</p>
 
             {#each timeButtons as buttonData (buttonData.value) }
             
-                <button on:click={(e)=> 
-                    {e.preventDefault() 
-                    handleTimeButton(buttonData.value)}} class:selected={buttonData.selected}  class="time"> {buttonData.name}</button>
+                <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleTimeButton(buttonData.value)}} class:selected={buttonData.selected }> 
+                    {buttonData.name}
+                </button>
                 
             {/each}
             
         </form>
-        
-        <!-- <form class="grid grid-rows-2 grid-cols-3 m-2 gap-5">
-            <p class="col-span-2" >When did it start?</p>
-            <input type="radio" name="headacheTimeStart" id="">
-            <input type="radio" name="headacheTimeStart" id="">
-            <input type="radio" name="headacheTimeStart" id="">
-            <input type="radio" name="headacheTimeStart" id="">
-        </form> -->
-
-
 
     </div>
+
     <CurrentLogBottomNav />
 
 </div>
@@ -91,12 +89,13 @@
         animation-timing-function: $swipeUpBezier;
     }
 
-    button.time{
-        border: 1px solid black;
+    button.selected{
 
-        &.selected{
-            background:red;
-        }
+        background: $green-100;
+        color: $appDark-200;
+        font-weight: 700;
+        line-height: 1.5rem;
+
     }
 
     

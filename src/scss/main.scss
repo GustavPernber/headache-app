@@ -1,7 +1,9 @@
 
 
 //Allt här importeras. Men använd sparsamt, håll till tailwind. Detta är mest för att använda typ avancerade mixins
-
+//Colors
+$green-100: #3BC393;
+$appDark-200: #293540;
 
 $swipeUpBezier:cubic-bezier(.26,.27,.32,.97);
 
@@ -15,5 +17,5 @@ $swipeUpBezier:cubic-bezier(.26,.27,.32,.97);
 }
 
 * {
-    color: white;
+    letter-spacing: 1.7px;
 }

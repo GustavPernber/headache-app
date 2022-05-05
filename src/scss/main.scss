@@ -19,3 +19,13 @@ $swipeUpBezier:cubic-bezier(.26,.27,.32,.97);
 * {
     letter-spacing: 1.7px;
 }
+  
+@keyframes swipeDown{
+    from{
+        top:1.5rem;
+    }
+    to{
+        top: 100vh;
+    }
+
+}

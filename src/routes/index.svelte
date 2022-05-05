@@ -5,16 +5,31 @@
     import BottomNav from '../lib/components/BottomNav.svelte';
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
+import { bind } from 'svelte/internal';
+    
+    let showCurrentlog = false
+    let currentLogUnmount = false
+
+    let yCord
 
     const handleCurrentlog = ()=>{
-        showCurrentlog=!showCurrentlog
+        
+        if (showCurrentlog){
+            currentLogUnmount=true
+            setTimeout(() => {
+                showCurrentlog=false
+            }, 500);
+
+        }else{
+            currentLogUnmount=false
+            showCurrentlog=true
+        }
     }
 
-    let showCurrentlog = false
 </script>
 
 <div class=" min-h-screen w-full bg-appDark-300 z-10">
-    <TopNav>
+    <TopNav {yCord}>
         <h1 class=" text-white text-xl font-semibold">September</h1>
     </TopNav>
 
@@ -22,17 +37,22 @@
 
     <div>
         <h2 class=" text-white">main content</h2>
+        <div class=" h-[60rem]"></div>
+
+
     </div>
 
 
     <BottomNav></BottomNav>
 
     {#if showCurrentlog}
-        <CurrentLog toggleCurrentLog={handleCurrentlog}></CurrentLog>
+        <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>
     {/if}
 
 </div>
 
 <BottomNav></BottomNav>
+
+<svelte:window bind:scrollY={yCord}></svelte:window>
 
 

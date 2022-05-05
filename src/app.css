@@ -7,3 +7,13 @@
 body{
     background: #293540;
 }
+
+.rangeSlider#slider {
+    background-color: rgba(0, 0, 0, 0.33);
+    background-image: linear-gradient(to right, #00FFA6, #F1E576, #FC5486);
+    /* width: 10rem; */
+}
+
+.rangeSlider > .rangeHandle > .rangeNub {
+    background: none;
+}

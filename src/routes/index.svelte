@@ -5,12 +5,25 @@
     import BottomNav from '../lib/components/BottomNav.svelte';
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
+    
+    let showCurrentlog = false
+    let currentLogUnmount = false
+
 
     const handleCurrentlog = ()=>{
-        showCurrentlog=!showCurrentlog
+        
+        if (showCurrentlog){
+            currentLogUnmount=true
+            setTimeout(() => {
+                showCurrentlog=false
+            }, 500);
+
+        }else{
+            currentLogUnmount=false
+            showCurrentlog=true
+        }
     }
 
-    let showCurrentlog = false
 </script>
 
 <div class=" min-h-screen w-full bg-appDark-300 z-10">
@@ -28,7 +41,7 @@
     <BottomNav></BottomNav>
 
     {#if showCurrentlog}
-        <CurrentLog toggleCurrentLog={handleCurrentlog}></CurrentLog>
+        <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>
     {/if}
 
 </div>

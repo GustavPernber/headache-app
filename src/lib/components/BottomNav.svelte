@@ -1,5 +1,5 @@
 
-<nav class=" overflow-hidden flex flex-row justify-between px-12 py-2 pb-6 items-center absolute bottom-0 w-full">
+<nav class=" overflow-hidden flex flex-row justify-between px-12 py-2 pb-6 items-center fixed bottom-0 w-full">
 
     <span class="material-icons text-3xl text-white">
         insights

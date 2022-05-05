@@ -35,6 +35,9 @@
 
     <div>
         <h2 class=" text-white">main content</h2>
+        <div class=" h-[60rem]"></div>
+
+
     </div>
 
 

@@ -5,7 +5,7 @@
     import BottomNav from '../lib/components/BottomNav.svelte';
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
-import { bind } from 'svelte/internal';
+    // import { bind } from 'svelte/internal';
     
     let showCurrentlog = false
     let currentLogUnmount = false
@@ -54,5 +54,3 @@ import { bind } from 'svelte/internal';
 <BottomNav></BottomNav>
 
 <svelte:window bind:scrollY={yCord}></svelte:window>
-
-

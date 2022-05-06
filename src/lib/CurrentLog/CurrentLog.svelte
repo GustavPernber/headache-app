@@ -61,7 +61,7 @@
         let customTime=timeButtons.find(obj=> obj.value === 'custom')
 
         customTime.time=time
-        $currentLogStore.time=`current_${customTime.time}`
+        $currentLogStore.time=`current;${customTime.time}`
         timeButtons=timeButtons
 
     }
@@ -73,6 +73,28 @@
     function handleSubmit(){
         console.log('submitting...');
         
+
+        if ($currentLogStore.time.split(';')[0]==='current') {
+            let time=$currentLogStore.time.split(';')[1]
+            console.log(time);
+
+            const date= new Date(time)
+            console.log(date);
+
+
+        }else{
+            console.log('not custom');
+            // switch ($currentLogStore.time) {
+            //     case 'now':
+            //         break
+            //     case '30_min_ago':
+            //         break
+            //     case '1_hour_ago':
+            //         break
+            // }
+        }
+
+
     }
 
 </script>

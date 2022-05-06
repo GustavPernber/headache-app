@@ -38,15 +38,28 @@ import { getPerformance } from "firebase/performance";
 
 
 let db
+
 export function initFirebase(){
 	initializeApp(firebaseConfig)
 	db = getFirestore()
 
-    
-
 }
 
 
+export async function addCurrentLog(){
+    try {
+        const docRef=await addDoc(collection(db, 'current-logs'), {
+            // text:text,
+            // painLevel:,
+            // time:,
+            // uid:uid
+        })
+		console.log('Created document with id:', docRef.id)
+	} catch (error) {
+		console.log(error)
+	}
+
+}
 
 
 // export async function addToDB(text){

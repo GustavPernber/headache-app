@@ -23,44 +23,48 @@
 
     
     let timeButtons=[
-        {name:"Custom", value:"custom", selected:false, time:{hr:null, min:null} },
+        {name:"Custom", value:"custom", selected:false, time:null},
         {name:"Now", value:"now", selected:true},
         {name:"30m ago", value:"30_min_ago", selected:false },
         {name:"1h ago", value:"1_hour_ago", selected:false }
 
     ]
 
-    function handleCustomTime(value) {
-        handleTimeButton(value)
-        // showTimeInput=true
-
-        //Få fram tids menyn
-
-        //Byt value i hashen som säger:
-        //byt knapp till input med styling
-    }
 
     function handleTimeButton(value){
  
         for (let i = 0; i < timeButtons.length; i++){
 
             let currentButton = timeButtons[i]
-            console.log(currentButton);
-
+            
             if(currentButton.selected === true && currentButton.value != value){
-
+                
                 currentButton.selected = false
                 
             }else if(currentButton.value === value){
                 
                 currentButton.selected = true
-                $currentLogStore.time=currentButton.value
+                if(currentButton.value !='custom'){
+                    $currentLogStore.time=currentButton.value
+                }
             }
-
+            
         }
-
+        // console.log(c);
+        
         timeButtons = timeButtons
         
+    }
+    
+    function customTimeChange(e){
+ 
+        const time = e.target.value
+        let customTime=timeButtons.find(obj=> obj.value === 'custom')
+        
+        customTime.time=time
+        $currentLogStore.time=`current_${customTime.time}`
+        timeButtons=timeButtons
+
     }
 
     function testFunc(){
@@ -105,10 +109,10 @@
                 {:else}
                     
                     {#if buttonData.selected}
-                        <input type="time"  class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]">    
+                        <input type="time" on:change="{customTimeChange}" class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]">    
 
                         {:else}
-                        <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleCustomTime(buttonData.value)}} class:selected={buttonData.selected }> 
+                        <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleTimeButton(buttonData.value)}} class:selected={buttonData.selected }> 
                             {buttonData.name}
                         </button>
                     {/if}

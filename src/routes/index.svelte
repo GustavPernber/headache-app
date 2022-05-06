@@ -5,7 +5,11 @@
     import BottomNav from '../lib/components/BottomNav.svelte';
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
-    // import { bind } from 'svelte/internal';
+
+
+    import { bind } from 'svelte/internal';
+    import PainGraph from '../lib/components/PainGraph.svelte';
+
     
     let showCurrentlog = false
     let currentLogUnmount = false
@@ -33,17 +37,16 @@
         <h1 class=" text-white text-xl font-semibold">September</h1>
     </TopNav>
 
-    <HomeCard {handleCurrentlog}></HomeCard>
+    <HomeCard {handleCurrentlog} />
 
     <div>
         <h2 class=" text-white">main content</h2>
-        <div class=" h-[60rem]"></div>
-
+        <div class=" h-[60rem]"><PainGraph /></div>
 
     </div>
 
 
-    <BottomNav></BottomNav>
+    <BottomNav />
 
     {#if showCurrentlog}
         <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>

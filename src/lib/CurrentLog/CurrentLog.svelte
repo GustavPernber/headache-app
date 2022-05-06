@@ -50,7 +50,6 @@
             }
             
         }
-        // console.log(c);
         
         timeButtons = timeButtons
         
@@ -60,7 +59,7 @@
  
         const time = e.target.value
         let customTime=timeButtons.find(obj=> obj.value === 'custom')
-        
+
         customTime.time=time
         $currentLogStore.time=`current_${customTime.time}`
         timeButtons=timeButtons
@@ -69,6 +68,11 @@
 
     function testFunc(){
         console.log($currentLogStore);
+    }
+
+    function handleSubmit(){
+        console.log('submitting...');
+        
     }
 
 </script>
@@ -126,7 +130,7 @@
     </div>
 
 
-    <CurrentLogBottomNav />
+    <CurrentLogBottomNav onClick={handleSubmit} />
 <!-- 
    {#if showTimeInput}
         <TimeInput toUnMount={()=>
@@ -169,9 +173,5 @@
         line-height: 1.5rem;
 
     }
-
-    
-
-
 
 </style>

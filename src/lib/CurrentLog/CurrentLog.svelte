@@ -5,33 +5,40 @@
 
     import CurrentLogBottomNav from './CurrentLogBottomNav.svelte';
     import CurrentLogTopNav from './CurrentLogTopNav.svelte';
+    import TimeInput from '../components/TimeInput.svelte';
     import RangeSlider from "svelte-range-slider-pips";
     
+    import { currentLogStore } from '../../stores';
+
     import {onDestroy, onMount} from 'svelte'
 
     let swipeUp=true
+    let showTimeInput=false
 
     onMount(()=>{
         setTimeout(() => {
             swipeUp=false
         }, 500);
     })
-    
-    let options=[
-        "one",
-        "two",
-        "three"
-    ]
-    
 
-
+    
     let timeButtons=[
-        {name:"Custom", value:"custom", selected:false },
+        {name:"Custom", value:"custom", selected:false, time:{hr:null, min:null} },
         {name:"Now", value:"now", selected:true},
         {name:"30m ago", value:"30_min_ago", selected:false },
         {name:"1h ago", value:"1_hour_ago", selected:false }
 
     ]
+
+    function handleCustomTime(value) {
+        handleTimeButton(value)
+        // showTimeInput=true
+
+        //Få fram tids menyn
+
+        //Byt value i hashen som säger:
+        //byt knapp till input med styling
+    }
 
     function handleTimeButton(value){
  
@@ -45,7 +52,7 @@
                 currentButton.selected = false
                 
             }else if(currentButton.value === value){
-
+                
                 currentButton.selected = true
                 
             }
@@ -55,7 +62,6 @@
         timeButtons = timeButtons
         
     }
-
 
 </script>
 
@@ -85,10 +91,25 @@
             <p class="col-span-2 self-center text-lightGrey text-base" >When did it start?</p>
 
             {#each timeButtons as buttonData (buttonData.value) }
-            
-                <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleTimeButton(buttonData.value)}} class:selected={buttonData.selected }> 
-                    {buttonData.name}
-                </button>
+
+                {#if buttonData.value != 'custom'}
+
+                    <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleTimeButton(buttonData.value)}} class:selected={buttonData.selected }> 
+                        {buttonData.name}
+                    </button>
+                    
+                {:else}
+                    
+                    {#if buttonData.selected}
+                        <input type="time"  class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]">    
+
+                        {:else}
+                        <button class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]" on:click={(e)=> {e.preventDefault(), handleCustomTime(buttonData.value)}} class:selected={buttonData.selected }> 
+                            {buttonData.name}
+                        </button>
+                    {/if}
+
+                {/if}
                 
             {/each}
             
@@ -98,11 +119,26 @@
 
 
     <CurrentLogBottomNav />
+<!-- 
+   {#if showTimeInput}
+        <TimeInput toUnMount={()=>
+            setTimeout(() => {
+                showTimeInput=false
+            }, 2000)
+        }/>
+    {/if}     -->
+   
 
 </div>
 
 
+
+
 <style lang="scss">
+
+    .time-input{
+        background-color: rgba(0, 0, 0, 0);
+    }
 
     .wrapper.swipeUp{
         animation:swipeUp 0.5s;

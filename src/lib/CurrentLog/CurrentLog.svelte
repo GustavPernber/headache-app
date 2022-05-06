@@ -54,13 +54,17 @@
             }else if(currentButton.value === value){
                 
                 currentButton.selected = true
-                
+                $currentLogStore.time=currentButton.value
             }
 
         }
 
         timeButtons = timeButtons
         
+    }
+
+    function testFunc(){
+        console.log($currentLogStore);
     }
 
 </script>
@@ -70,13 +74,13 @@
 
     <CurrentLogTopNav {toggleCurrentLog} />
     <div class="flex flex-col">
-
+        <button on:click="{testFunc}" > click </button>
         <h1 class="self-center text-2xl py-3">How's the pain?</h1>
 
         <div class="grid grid-cols-[1rem_1fr_1rem]">
 
             <p class="self-center">1</p>
-            <RangeSlider float=true values={[2]} step={1} min={1} max={10} id="slider"/>
+            <RangeSlider float=true bind:values={$currentLogStore.painLevel} step={1} min={1} max={10} id="slider"/>
             <p class="self-center">10</p>
 
         </div>

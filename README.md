@@ -1,3 +1,12 @@
+Länk till slider:
+https://simeydotme.github.io/svelte-range-slider-pips/
+
+Länk till graf:
+https://frappe.io/charts/docs 
+
+Länk till date: 
+https://svelte.dev/repl/417334165e9247b4b64c94fe7547e257?version=3.38.2 
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).

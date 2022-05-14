@@ -93,8 +93,18 @@
 					console.log(unixTime);
 					break;
 			}
+
 		}
+
+        let currentLogObject={
+            painLevel: $currentLogStore.painLevel[0],
+            unixTime: unixTime
+        }
+
+        console.log(currentLogObject);
+
 	}
+
 </script>
 
 <div

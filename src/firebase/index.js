@@ -46,7 +46,7 @@ export function initFirebase(){
 }
 
 
-export async function addCurrentLog(){
+export async function addCurrentLog({painLevel, unixTime}){
     try {
         const docRef=await addDoc(collection(db, 'current-logs'), {
             // text:text,
@@ -54,6 +54,7 @@ export async function addCurrentLog(){
             // time:,
             // uid:uid
         })
+		
 		console.log('Created document with id:', docRef.id)
 	} catch (error) {
 		console.log(error)

@@ -11,6 +11,7 @@
 	import { currentLogStore } from "../../stores";
 
 	import { onDestroy, onMount } from "svelte";
+	import { addCurrentLog } from "../../firebase";
 
 	let swipeUp = true;
 	let showTimeInput = false;
@@ -91,10 +92,16 @@
 					unixTime = moment().unix();
 					console.log(unixTime);
 					break;
-			
-		}	}
+			}
+		}	
 
-		
+		let currentLogObj={
+			painLevel:$currentLogStore.painLevel[0],
+			unixTime:unixTime
+		}
+
+		addCurrentLog(currentLogObj)
+
 
 	}
 

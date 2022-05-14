@@ -3,6 +3,7 @@
     export let toggleCurrentLog
     export let toUnmount
 
+    import moment from 'moment'
     import CurrentLogBottomNav from './CurrentLogBottomNav.svelte';
     import CurrentLogTopNav from './CurrentLogTopNav.svelte';
     import TimeInput from '../components/TimeInput.svelte';
@@ -61,7 +62,7 @@
         let customTime=timeButtons.find(obj=> obj.value === 'custom')
 
         customTime.time=time
-        $currentLogStore.time=`current;${customTime.time}`
+        $currentLogStore.time=`custom;${customTime.time}`
         timeButtons=timeButtons
 
     }
@@ -72,26 +73,35 @@
 
     function handleSubmit(){
         console.log('submitting...');
-        
+        //get unix time
+        //get pain level
+        //call f() in fb to set in db
 
-        if ($currentLogStore.time.split(';')[0]==='current') {
+        let unixTime
+        if ($currentLogStore.time.split(';')[0]==='custom') {
             let time=$currentLogStore.time.split(';')[1]
-            console.log(time);
+            console.log('custom', time);
 
-            const date= new Date(time)
-            console.log(date);
+            unixTime=moment(time, 'hh.mm').unix()
 
 
         }else{
             console.log('not custom');
-            // switch ($currentLogStore.time) {
-            //     case 'now':
-            //         break
-            //     case '30_min_ago':
-            //         break
-            //     case '1_hour_ago':
-            //         break
-            // }
+            console.log($currentLogStore.time)
+
+            switch ($currentLogStore.time) {
+                case '1_hour_ago':
+                    unixTime=
+                    break;
+                
+                case '30_min_ago':
+                    break;
+
+                case 'now':
+                    break;
+            }
+
+
         }
 
 

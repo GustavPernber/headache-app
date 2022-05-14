@@ -11,7 +11,9 @@
 	import { currentLogStore } from "../../stores";
 
 	import { onDestroy, onMount } from "svelte";
+
 	import { addCurrentLog } from "../../firebase";
+
 
 	let swipeUp = true;
 	let showTimeInput = false;
@@ -92,6 +94,7 @@
 					unixTime = moment().unix();
 					console.log(unixTime);
 					break;
+
 			}
 		}	
 
@@ -101,6 +104,12 @@
 		}
 
 		addCurrentLog(currentLogObj)
+
+
+    }	
+		}	
+
+		
 
 
 	}

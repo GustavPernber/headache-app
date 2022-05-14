@@ -21,16 +21,16 @@
 		}, 500);
 	});
 
-	let timeButtons = [
-		{ name: "Custom", value: "custom", selected: false, time: null },
-		{ name: "Now", value: "now", selected: true },
-		{ name: "30m ago", value: "30_min_ago", selected: false },
-		{ name: "1h ago", value: "1_hour_ago", selected: false },
-	];
+	// let timeButtons = [
+	// 	{ name: "Custom", value: "custom", selected: false, time: null },
+	// 	{ name: "Now", value: "now", selected: true },
+	// 	{ name: "30m ago", value: "30_min_ago", selected: false },
+	// 	{ name: "1h ago", value: "1_hour_ago", selected: false },
+	// ];
 
 	function handleTimeButton(value) {
-		for (let i = 0; i < timeButtons.length; i++) {
-			let currentButton = timeButtons[i];
+		for (let i = 0; i < $currentLogStore.timeButtons.length; i++) {
+			let currentButton = $currentLogStore.timeButtons[i];
 
 			if (
 				currentButton.selected === true &&
@@ -39,22 +39,19 @@
 				currentButton.selected = false;
 			} else if (currentButton.value === value) {
 				currentButton.selected = true;
-				if (currentButton.value != "custom") {
-					$currentLogStore.time = currentButton.value;
-				}
+
 			}
 		}
 
-		timeButtons = timeButtons;
+		$currentLogStore.timeButtons= $currentLogStore.timeButtons;
 	}
 
 	function customTimeChange(e) {
 		const time = e.target.value;
-		let customTime = timeButtons.find((obj) => obj.value === "custom");
+		let customTime = $currentLogStore.timeButtons.find((obj) => obj.value === "custom");
 
 		customTime.time = time;
-		$currentLogStore.time = `custom;${customTime.time}`;
-		timeButtons = timeButtons;
+		$currentLogStore.timeButtons = $currentLogStore.timeButtons;
 	}
 
 	function testFunc() {
@@ -68,16 +65,18 @@
 		//call f() in fb to set in db
 
 		let unixTime;
-		if ($currentLogStore.time.split(";")[0] === "custom") {
-			let time = $currentLogStore.time.split(";")[1];
-			console.log("custom", time);
 
-			unixTime = moment(time, "hh.mm").unix();
-		} else {
-			console.log("not custom");
-			console.log($currentLogStore.time);
+        let selected=$currentLogStore.timeButtons.find((obj) => obj.selected)
+        console.log(selected);
 
-			switch ($currentLogStore.time) {
+        if (selected.value==="custom") {
+            console.log(selected.time);
+            unixTime = moment(selected.time, "hh.mm").unix()
+        }else{
+            console.log("not custom");
+			
+
+			switch (selected.value) {
 				case "1_hour_ago":
 					unixTime = moment().subtract(1, "hours").unix();
 					console.log(unixTime);
@@ -92,16 +91,10 @@
 					unixTime = moment().unix();
 					console.log(unixTime);
 					break;
-			}
+			
+		}	}
 
-		}
-
-        let currentLogObject={
-            painLevel: $currentLogStore.painLevel[0],
-            unixTime: unixTime
-        }
-
-        console.log(currentLogObject);
+		
 
 	}
 
@@ -139,7 +132,7 @@
 				When did it start?
 			</p>
 
-			{#each timeButtons as buttonData (buttonData.value)}
+			{#each $currentLogStore.timeButtons as buttonData (buttonData.value)}
 				{#if buttonData.value != "custom"}
 					<button
 						class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"

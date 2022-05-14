@@ -1,8 +1,8 @@
 <script>
-
+    export let onClick
 </script>
 
-<div class="flex justify-center fixed bottom-14 self-center">
+<div on:click="{onClick}" class="flex justify-center fixed bottom-14 self-center">
 
     <div class="flex justify-center bg-gradient-to-r from-pink-100 to-pink-200 items-center rounded-full h-[2.75rem] w-32">
         <p class="text-white text-xl text-center p-2">Next</p>

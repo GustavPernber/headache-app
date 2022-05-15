@@ -34,7 +34,7 @@
 
 </script>
 
-<button on:click={testFunc}>console</button>
+
 {#await loadGraph() then graphData}
 	<Chart
 		data={graphData}

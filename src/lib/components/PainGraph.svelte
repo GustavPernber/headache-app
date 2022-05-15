@@ -41,7 +41,8 @@
 		height={300}
 		type={"line"}
 		title={""}
-		axisOptions={{ xAxisMode: "tick" }}
+		axisOptions={{ xAxisMode: "tick", xIsSeries:0,}}
+		
 		lineOptions={{ spline: 0 }}
 	/>
 </div>	

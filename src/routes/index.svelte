@@ -39,11 +39,11 @@
 
     <HomeCard {handleCurrentlog} />
 
-    <div>
-        <div class="text-white">
-            <h3>Painlevel over time</h3>           
+    <div class="mainContent text-white px-5">
+
+        <div>
+            <h1  class=" pl-5  text-xl ">Painlevel over time</h1>           
             <PainGraph/>
-            
 
         </div>
 

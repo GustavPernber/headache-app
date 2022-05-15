@@ -12,7 +12,7 @@
 
 		for (let i = 0; i < allCurrentLogs.length; i++) {
 			const log = allCurrentLogs[i];
-			const formatTime = moment.unix(log.time).format();
+			const formatTime = moment.unix(log.time).format('HH:mm, DD-MM-YYYY');
 			timeLabels.push(formatTime);
 			painValues.push(log.painLevel);
 		}

@@ -40,10 +40,9 @@
     <HomeCard {handleCurrentlog} />
 
     <div>
-        <h2 class=" text-white">main content</h2>
-        <div>
-                      
-                <PainGraph/>
+        <div class="text-white">
+            <h3>Painlevel over time</h3>           
+            <PainGraph/>
             
 
         </div>

@@ -41,8 +41,11 @@
 
     <div>
         <h2 class=" text-white">main content</h2>
-        <div class=" text-red-600  pb-[10rem]">
-            <PainGraph/>
+        <div>
+                      
+                <PainGraph/>
+            
+
         </div>
 
     </div>

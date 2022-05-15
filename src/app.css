@@ -29,7 +29,12 @@ body{
     font-weight: 500;
 }
 
-body > div > div.min-h-screen.w-full.bg-appDark-300.z-10 > div > div > div > div > svg > * text{
-    /* font-size: 2rem; */
-    color: #00FFA6;
+
+
+div.painGraph * text{
+    font-size: 0.8rem;
+    font-family: 'Poppins';    
+    fill: #D2D2D2;
 }
+
+

@@ -35,7 +35,8 @@
 
 
 {#await loadGraph() then graphData}
-	<Chart
+<div class=" painGraph pb-[10rem]">  
+	<Chart 
 		data={graphData}
 		height={300}
 		type={"line"}
@@ -43,4 +44,5 @@
 		axisOptions={{ xAxisMode: "tick" }}
 		lineOptions={{ spline: 0 }}
 	/>
+</div>	
 {/await}

@@ -1,20 +1,47 @@
 <script>
-    import Chart from 'svelte-frappe-charts';
-  
-    let data = {
-        labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-      
-        datasets: [
-            {
-                name: "Pain level",
-                // chartType: "line",
-                values: [1, 1, 3, 9, 8, 10, 1]
-            }
-        ],
+	import { getAllCurrentLogs } from "../../firebase";
 
+	import Chart from "svelte-frappe-charts";
+	import moment from "moment";
+	import { onMount } from "svelte";
 
-    };
+	async function loadGraph() {
+		let timeLabels = [];
+		let painValues = [];
+		const allCurrentLogs = await getAllCurrentLogs();
+
+		for (let i = 0; i < allCurrentLogs.length; i++) {
+			const log = allCurrentLogs[i];
+			const formatTime = moment.unix(log.time).format();
+			timeLabels.push(formatTime);
+			painValues.push(log.painLevel);
+		}
+
+		let graphData = {
+			labels: timeLabels,
+			datasets: [
+				{
+					name: "Pain level",
+					// chartType: "line",
+					values: painValues,
+				},
+			],
+		};
+
+		return graphData;
+	}
+    
 
 </script>
 
-<Chart data={data} height={300} type={'line'} title={""} axisOptions={{xAxisMode: 'tick'}} lineOptions={{spline: 1}} />
+<button on:click={testFunc}>console</button>
+{#await loadGraph() then graphData}
+	<Chart
+		data={graphData}
+		height={300}
+		type={"line"}
+		title={""}
+		axisOptions={{ xAxisMode: "tick" }}
+		lineOptions={{ spline: 1 }}
+	/>
+{/await}

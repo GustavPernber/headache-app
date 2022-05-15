@@ -3,7 +3,7 @@
 
 	import Chart from "svelte-frappe-charts";
 	import moment from "moment";
-	import { onMount } from "svelte";
+
 
 	async function loadGraph() {
 		let timeLabels = [];
@@ -22,7 +22,6 @@
 			datasets: [
 				{
 					name: "Pain level",
-					// chartType: "line",
 					values: painValues,
 				},
 			],
@@ -42,6 +41,6 @@
 		type={"line"}
 		title={""}
 		axisOptions={{ xAxisMode: "tick" }}
-		lineOptions={{ spline: 1 }}
+		lineOptions={{ spline: 0 }}
 	/>
 {/await}

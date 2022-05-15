@@ -41,12 +41,12 @@
 
     <div>
         <h2 class=" text-white">main content</h2>
-        <div class=" h-[60rem]"><PainGraph /></div>
+        <div class=" text-red-600  pb-[10rem]">
+            <PainGraph/>
+        </div>
 
     </div>
 
-
-    <PainGraph />
 
     {#if showCurrentlog}
         <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>

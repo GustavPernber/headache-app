@@ -55,9 +55,7 @@ export async function getAllCurrentLogs(){
 		allLogs.push(doc.data())
 	})
 
-	console.log(allLogs)
 
-	// return [{time: 1652542396, painLevel:4}, {time: 1652544091, painLevel:8}, {time: 1652544960, painLevel:3}]
 	return allLogs
 }
 

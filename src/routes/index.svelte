@@ -46,7 +46,7 @@
     </div>
 
 
-    <BottomNav />
+    <PainGraph />
 
     {#if showCurrentlog}
         <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>

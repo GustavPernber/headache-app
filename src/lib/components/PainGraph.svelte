@@ -7,17 +7,14 @@
         datasets: [
             {
                 name: "Pain level",
-                chartType: "line",
+                // chartType: "line",
                 values: [1, 1, 3, 9, 8, 10, 1]
             }
-
-            // {
-            // values: [1, 1, 3, 9, 8, 5, 9]
-            // }
         ],
+
 
     };
 
 </script>
 
-<Chart data={data} height={300} title={""} axisOptions={{xAxisMode: 'tick'}} lineOptions={{spline: 1}} />
+<Chart data={data} height={300} type={'line'} title={""} axisOptions={{xAxisMode: 'tick'}} lineOptions={{spline: 1}} />

@@ -10,8 +10,6 @@
     let showCurrentlog = false
     let currentLogUnmount = false
 
-    let yCord
-
     const handleCurrentlog = ()=>{
         
         if (showCurrentlog){
@@ -29,11 +27,9 @@
 </script>
 
 <div class=" min-h-screen w-full bg-appDark-300 z-10">
-    <TopNav {yCord}>
-        <h1 class=" text-white text-xl font-semibold">September</h1>
-    </TopNav>
 
-    <HomeCard {handleCurrentlog}></HomeCard>
+
+    <HomeCard {handleCurrentlog} />
 
     <div>
         <h2 class=" text-white">main content</h2>
@@ -46,11 +42,9 @@
     <BottomNav></BottomNav>
 
     {#if showCurrentlog}
-        <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog}></CurrentLog>
+        <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog} />
     {/if}
 
 </div>
 
-<BottomNav></BottomNav>
-
-<svelte:window bind:scrollY={yCord}></svelte:window>
+<BottomNav />

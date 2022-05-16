@@ -8,7 +8,7 @@
 
 
     import { bind } from 'svelte/internal';
-    import PainGraph from '../lib/components/PainGraph.svelte';
+    import PainGraph from '../lib/Statistics/PainGraph.svelte';
 
     
     let showCurrentlog = false

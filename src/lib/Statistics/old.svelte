@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { getAllCurrentLogs } from "../../firebase";
 
 	import Chart from "svelte-frappe-charts";
@@ -46,4 +46,4 @@
 		lineOptions={{ spline: 0 }}
 	/>
 </div>	
-{/await}
+{/await} -->

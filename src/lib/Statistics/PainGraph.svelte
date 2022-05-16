@@ -11,6 +11,7 @@
 	async function loadGraph() {
 		let data = [];
 
+		//Hämtar datan från firebase
 		const allCurrentLogs = await getAllCurrentLogs();
 
 		for (let i = 0; i < allCurrentLogs.length; i++) {
@@ -18,48 +19,39 @@
 			const momentTime = moment.unix(log.time)
 			const formatTime={year:momentTime.year(), month: momentTime.month(), day: momentTime.day(), hour: momentTime.hour(), minutes: momentTime.minutes() ,seconds: momentTime.seconds(), }
 
-			// data.push([Date.UTC(1970, formatTime.month, formatTime.day, formatTime.hour,formatTime.minutes, formatTime.seconds ), log.painLevel]);
-			// data.push([Date.UTC(1970, formatTime.month, formatTime.day, formatTime.hour,formatTime.minutes, formatTime.seconds ), log.painLevel]);
 			data.push([log.time, log.painLevel])
-			console.log(formatTime);
-
-			// data.push([Date.UTC(1970, 1, i), log.painLevel]);
-			// data.push([Date.UTC(1970, i+1, i+3), log.painLevel]);
 		}
 
+		//Ser sjukt fult ut men sorterar iaf datan
 		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
-		let data2=
-		[
-						[Date.UTC(1970, 10, 9), 0],
-						[Date.UTC(1970, 10, 10), 0.23],
-						[Date.UTC(1970, 10, 11), 0.25],
-						[Date.UTC(1970, 10, 12), 0.23],
-						[Date.UTC(1970, 10, 13), 0.39],
 
-
-		]
-
-		console.log(data);
-		console.log(data2);
 		let config = {
+			legend:{
+				enabled:false,
+			},
+
+			credits:{
+				enabled:false
+			},
 			chart: {
+				backgroundColor: "rgba(0, 0,0, 0)",
 				type: "spline",
 			},
 
 			title: {
-				text: "Pain level over time",
-			},
-
-			subtitle: {
-				text: "Source: thesolarfoundation.com",
+				text: "",
 			},
 
 			yAxis: {
 				title: {
-					text: "Number of Employees",
+					text: "Pain level",
+					style:{
+						color:"#D2D2D2"
+					}
 				},
 
 				min: 0,
+				max:10
 			},
 
 			xAxis: {
@@ -71,6 +63,9 @@
 				},
 				title: {
 					text: "Date",
+					style:{
+						color:"#D2D2D2"
+					}
 				},
 			},
 
@@ -84,7 +79,7 @@
 
 			series: [
 				{
-					name: "Installation",
+					name: "",
 					data: data
 					
 				},
@@ -100,7 +95,8 @@
 							plotOptions: {
 								series: {
 									marker: {
-										radius: 2.5,
+										radius: 4,
+										symbol:'circle'
 									},
 								},
 							},
@@ -114,14 +110,9 @@
 		return config;
 	}
 
-	// function generateNewData() {
-	// 	const newData = config.series[0].data.map((data) =>
-	// 		Math.round(Math.random() * 100000)
-	// 	);
-	// 	config.series[0].data = newData;
-	// }
+
 </script>
 
 {#await loadGraph() then config}
-	<div class="chart" use:highcharts={config} />
+	<div class="pain-chart" use:highcharts={config} />
 {/await}

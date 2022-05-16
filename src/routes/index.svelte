@@ -41,7 +41,7 @@
 
     <div class="mainContent text-white px-5">
 
-        <div>
+        <div class=" pb-28">
             <h1  class=" pl-5  text-xl ">Painlevel over time</h1>           
             <PainGraph/>
 

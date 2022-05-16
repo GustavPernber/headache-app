@@ -1,91 +1,127 @@
 <script>
 	import highcharts from "./highcharts";
-	let config = {
-		title: {
-			text: "Solar Employment Growth by Sector, 2010-2016",
-		},
+	import { onMount } from "svelte";
+	import { getAllCurrentLogs } from "../../firebase";
+	import moment from "moment";
 
-		subtitle: {
-			text: "Source: thesolarfoundation.com",
-		},
+	onMount(() => {
+		console.log(Date.UTC(2022, 5, 16));
+	});
 
-		yAxis: {
+	async function loadGraph() {
+		let data = [];
+
+		const allCurrentLogs = await getAllCurrentLogs();
+
+		for (let i = 0; i < allCurrentLogs.length; i++) {
+			const log = allCurrentLogs[i];
+			const momentTime = moment.unix(log.time)
+			const formatTime={year:momentTime.year(), month: momentTime.month(), day: momentTime.day(), hour: momentTime.hour(), minutes: momentTime.minutes() ,seconds: momentTime.seconds(), }
+
+			// data.push([Date.UTC(1970, formatTime.month, formatTime.day, formatTime.hour,formatTime.minutes, formatTime.seconds ), log.painLevel]);
+			// data.push([Date.UTC(1970, formatTime.month, formatTime.day, formatTime.hour,formatTime.minutes, formatTime.seconds ), log.painLevel]);
+			data.push([log.time, log.painLevel])
+			console.log(formatTime);
+
+			// data.push([Date.UTC(1970, 1, i), log.painLevel]);
+			// data.push([Date.UTC(1970, i+1, i+3), log.painLevel]);
+		}
+
+		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
+		let data2=
+		[
+						[Date.UTC(1970, 10, 9), 0],
+						[Date.UTC(1970, 10, 10), 0.23],
+						[Date.UTC(1970, 10, 11), 0.25],
+						[Date.UTC(1970, 10, 12), 0.23],
+						[Date.UTC(1970, 10, 13), 0.39],
+
+
+		]
+
+		console.log(data);
+		console.log(data2);
+		let config = {
+			chart: {
+				type: "spline",
+			},
+
 			title: {
-				text: "Number of Employees",
+				text: "Pain level over time",
 			},
-		},
 
-		xAxis: {
-			accessibility: {
-				rangeDescription: "Range: 2010 to 2017",
+			subtitle: {
+				text: "Source: thesolarfoundation.com",
 			},
-		},
 
-		legend: {
-			layout: "vertical",
-			align: "right",
-			verticalAlign: "middle",
-		},
-
-		plotOptions: {
-			series: {
-				label: {
-					connectorAllowed: false,
+			yAxis: {
+				title: {
+					text: "Number of Employees",
 				},
-				pointStart: 2010,
-			},
-		},
 
-		series: [
-			{
-				name: "Installation",
-				data: [
-					43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175,
-				],
+				min: 0,
 			},
-			{
-				name: "Manufacturing",
-				data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434],
-			},
-			{
-				name: "Sales & Distribution",
-				data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387],
-			},
-			{
-				name: "Project Development",
-				data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227],
-			},
-			{
-				name: "Other",
-				data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111],
-			},
-		],
 
-		responsive: {
-			rules: [
+			xAxis: {
+				type: "datetime",
+				dateTimeLabelFormats: {
+					// don't display the dummy year
+					month: "%e. %b",
+					year: "%b",
+				},
+				title: {
+					text: "Date",
+				},
+			},
+
+			plotOptions: {
+				series: {
+					marker: {
+						enabled: true,
+					},
+				},
+			},
+
+			series: [
 				{
-					condition: {
-						maxWidth: 500,
-					},
-					chartOptions: {
-						legend: {
-							layout: "horizontal",
-							align: "center",
-							verticalAlign: "bottom",
-						},
-					},
+					name: "Installation",
+					data: data
+					
 				},
 			],
-		},
-	};
 
-	function generateNewData() {
-		const newData = config.series[0].data.map((data) =>
-			Math.round(Math.random() * 100000)
-		);
-		config.series[0].data = newData;
+			responsive: {
+				rules: [
+					{
+						condition: {
+							maxWidth: 500,
+						},
+						chartOptions: {
+							plotOptions: {
+								series: {
+									marker: {
+										radius: 2.5,
+									},
+								},
+							},
+						},
+					},
+				],
+			},
+		};
+
+		console.log(config);
+		return config;
 	}
+
+	// function generateNewData() {
+	// 	const newData = config.series[0].data.map((data) =>
+	// 		Math.round(Math.random() * 100000)
+	// 	);
+	// 	config.series[0].data = newData;
+	// }
 </script>
 
-
-<div class="chart" use:highcharts={config}></div>
+{#await loadGraph() then config}
+	<div class="chart" use:highcharts={config} />
+{/await}

@@ -46,6 +46,19 @@ export function initFirebase(){
 }
 
 
+export async function getAllCurrentLogs(){
+
+	const querySnapshot=await getDocs(collection(db, 'current-logs'))
+
+	let allLogs=[]
+	querySnapshot.forEach(doc=>{
+		allLogs.push(doc.data())
+	})
+
+
+	return allLogs
+}
+
 export async function addCurrentLog({painLevel, unixTime}){
 
     try {

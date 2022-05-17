@@ -5,7 +5,11 @@
     import BottomNav from '../lib/components/BottomNav.svelte';
     import HomeCard from '../lib/HomeCard/index.svelte';
     import TopNav from '../lib/components/TopNav.svelte';
-    // import { bind } from 'svelte/internal';
+
+
+    import { bind } from 'svelte/internal';
+    import PainGraph from '../lib/Statistics/PainGraph.svelte';
+
     
     let showCurrentlog = false
     let currentLogUnmount = false
@@ -26,20 +30,24 @@
 
 </script>
 
-<div class=" min-h-screen w-full bg-appDark-300 z-10">
 
+<div class=" min-h-screen w-full  mb-20 bg-appDark-300 z-10">
+    <TopNav {yCord}>
+        <h1 class=" text-white text-xl font-semibold">September</h1>
+    </TopNav>
 
     <HomeCard {handleCurrentlog} />
 
-    <div>
-        <h2 class=" text-white">main content</h2>
-        <div class=" h-[60rem]"></div>
+    <div class="mainContent text-white px-5   pt-20 pb-5 ">
 
+        <div class=" p-5 bg-appDark-200 rounded-2xl" >
+            <h1  class=" pl-5  text-xl ">Painlevel over time</h1>           
+            <PainGraph/>
+
+        </div>
 
     </div>
 
-
-    <BottomNav></BottomNav>
 
     {#if showCurrentlog}
         <CurrentLog toUnmount={currentLogUnmount} toggleCurrentLog={handleCurrentlog} />

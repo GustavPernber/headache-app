@@ -2,7 +2,7 @@ Länk till slider:
 https://simeydotme.github.io/svelte-range-slider-pips/
 
 Länk till graf:
-https://frappe.io/charts/docs 
+https://api.highcharts.com/highcharts/
 
 Länk till date: 
 https://svelte.dev/repl/417334165e9247b4b64c94fe7547e257?version=3.38.2 

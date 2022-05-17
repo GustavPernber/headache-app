@@ -1,12 +1,7 @@
 <script>
 	import highcharts from "./highcharts";
-	import { onMount } from "svelte";
 	import { getAllCurrentLogs } from "../../firebase";
 	import moment from "moment";
-
-	onMount(() => {
-		console.log(Date.UTC(2022, 5, 16));
-	});
 
 	async function loadGraph() {
 		let data = [];
@@ -16,9 +11,6 @@
 
 		for (let i = 0; i < allCurrentLogs.length; i++) {
 			const log = allCurrentLogs[i];
-			const momentTime = moment.unix(log.time)
-			const formatTime={year:momentTime.year(), month: momentTime.month(), day: momentTime.day(), hour: momentTime.hour(), minutes: momentTime.minutes() ,seconds: momentTime.seconds(), }
-
 			data.push([log.time, log.painLevel])
 		}
 
@@ -36,6 +28,7 @@
 			chart: {
 				backgroundColor: "rgba(0, 0,0, 0)",
 				type: "spline",
+				height:200,
 			},
 
 			title: {
@@ -106,7 +99,6 @@
 			},
 		};
 
-		console.log(config);
 		return config;
 	}
 

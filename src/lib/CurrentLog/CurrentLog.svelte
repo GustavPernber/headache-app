@@ -19,9 +19,9 @@
 	let showTimeInput = false;
 
 	onMount(() => {
-		setTimeout(() => {
-			swipeUp = false;
-		}, 500);
+		// setTimeout(() => {
+		// 	swipeUp = false;
+		// }, 500);
 	});
 
 	// let timeButtons = [
@@ -116,98 +116,95 @@
 
 </script>
 
+<!-- class=" text-white flex gap-20 flex-col wrapper w-full bg-appDark-300 fixed bottom-0 top-6 rounded-t-2xl z-20 p-5" -->
 <div
 	class:swipeUp
 	class:toUnmount
-	class=" text-white flex gap-20 flex-col wrapper h-[calc(100vh-1.75rem)] w-full bg-appDark-300 absolute bottom-0 top-6 rounded-t-2xl z-20 p-5"
+	class=" text-white  grid grid-cols-1 grid-rows-[2rem_1fr_2rem] wrapper w-full bg-appDark-300 fixed bottom-0 top-6 rounded-t-2xl z-20 p-5"
 >
 	<CurrentLogTopNav {toggleCurrentLog} />
-	<div class="flex flex-col">
-		<button on:click={testFunc}> click </button>
-		<h1 class="self-center text-2xl py-3">How's the pain?</h1>
-
-		<div class="grid grid-cols-[1rem_1fr_1rem]">
-			<p class="self-center">1</p>
-			<RangeSlider
-				float="true"
-				bind:values={$currentLogStore.painLevel}
-				step={1}
-				min={1}
-				max={10}
-				id="slider"
-			/>
-			<p class="self-center">10</p>
-		</div>
-	</div>
-
 	<div>
-		<h1 class="text-2xl py-3">Time</h1>
+		<div class="flex flex-col">
+			<button on:click={testFunc}> click </button>
+			<h1 class="self-center text-2xl py-3">How's the pain?</h1>
+	
+			<div class="grid grid-cols-[1rem_1fr_1rem]">
+				<p class="self-center">1</p>
+				<RangeSlider
+					float="true"
+					bind:values={$currentLogStore.painLevel}
+					step={1}
+					min={1}
+					max={10}
+					id="slider"
+				/>
+				<p class="self-center">10</p>
+			</div>
+		</div>
+	
+		<div>
+			<h1 class="text-2xl py-3">Time</h1>
+	
+			<div class="grid grid-rows-2 grid-cols-3 gap-5">
+				<p class="col-span-2 self-center text-lightGrey text-base">
+					When did it start?
+				</p>
+	
+				{#each $currentLogStore.timeButtons as buttonData (buttonData.value)}
+					{#if buttonData.value != "custom"}
+						<button
+							class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
+							on:click={(e) => {
+								e.preventDefault(),
+									handleTimeButton(buttonData.value);
+							}}
+							class:selected={buttonData.selected}
+						>
+							{buttonData.name}
+						</button>
+					{:else if buttonData.selected}
+						<input
+							type="time"
+							on:change={customTimeChange}
+							class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
+						/>
+					{:else}
+						<button
+							class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
+							on:click={(e) => {
+								e.preventDefault(),
+									handleTimeButton(buttonData.value);
+							}}
+							class:selected={buttonData.selected}
+						>
+							{buttonData.name}
+						</button>
+					{/if}
+				{/each}
+				</div>
+		</div>
 
-		<form class="grid grid-rows-2 grid-cols-3 gap-5">
-			<p class="col-span-2 self-center text-lightGrey text-base">
-				When did it start?
-			</p>
-
-			{#each $currentLogStore.timeButtons as buttonData (buttonData.value)}
-				{#if buttonData.value != "custom"}
-					<button
-						class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
-						on:click={(e) => {
-							e.preventDefault(),
-								handleTimeButton(buttonData.value);
-						}}
-						class:selected={buttonData.selected}
-					>
-						{buttonData.name}
-					</button>
-				{:else if buttonData.selected}
-					<input
-						type="time"
-						on:change={customTimeChange}
-						class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
-					/>
-				{:else}
-					<button
-						class="rounded-lg border-2 border-green-100 text-base h-9 w-[6.5rem]"
-						on:click={(e) => {
-							e.preventDefault(),
-								handleTimeButton(buttonData.value);
-						}}
-						class:selected={buttonData.selected}
-					>
-						{buttonData.name}
-					</button>
-				{/if}
-			{/each}
-		</form>
 	</div>
 
-	<CurrentLogBottomNav onClick={handleSubmit} />
-	<!-- 
-   {#if showTimeInput}
-        <TimeInput toUnMount={()=>
-            setTimeout(() => {
-                showTimeInput=false
-            }, 2000)
-        }/>
-    {/if}     -->
+	<CurrentLogBottomNav
+	onClick={handleSubmit} />
+
 </div>
 
 <style lang="scss">
-	.time-input {
-		background-color: rgba(0, 0, 0, 0);
-	}
 
 	.wrapper.swipeUp {
 		animation: swipeUp 0.5s;
 		// animation-timing-function: cubic-bezier(.34,.47,.24,.98);
 		animation-timing-function: $swipeUpBezier;
+		// transform: translateY(-10rem);
+		// transition: 3s;
 	}
 	.wrapper.toUnmount {
 		// animation:swipeDown 0.5s;
-		// animation-timing-function: cubic-bezier(.34,.47,.24,.98);
 		transform: translateY(100vh);
 		transition: 0.5s;
+		// animation-timing-function: cubic-bezier(.34,.47,.24,.98);
 		// animation-timing-function: $swipeUpBezier;
 	}
 

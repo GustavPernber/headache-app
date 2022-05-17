@@ -9,10 +9,11 @@ $swipeUpBezier:cubic-bezier(.26,.27,.32,.97);
 
 @keyframes swipeUp{
     from{
-        top:100vh;
+    
+        transform: translateY(100vh);
     }
     to{
-        top: 1.5rem;
+        transform: translateY(0);
     }
 }
 

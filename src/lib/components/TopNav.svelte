@@ -1,12 +1,3 @@
-<script >
-    export let yCord
-
-    let yTrigger=20
-
-</script>
-
-
-
 
 <nav class="h-16 px-4 pb-6 pt-7 flex flex-row items-center justify-between bg-appDark-200">
         

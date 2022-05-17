@@ -32,9 +32,6 @@
 
 
 <div class=" min-h-screen w-full  mb-20 bg-appDark-300 z-10">
-    <TopNav {yCord}>
-        <h1 class=" text-white text-xl font-semibold">September</h1>
-    </TopNav>
 
     <HomeCard {handleCurrentlog} />
 

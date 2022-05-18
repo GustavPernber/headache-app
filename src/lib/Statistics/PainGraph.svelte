@@ -3,22 +3,47 @@
 	import { getAllCurrentLogs } from "../../firebase";
 	import moment from "moment";
 
+	//TAr in array med alla logs. returnar: {todaysData:[...], }
+	function formatData(allLogs){
+
+		let currentSimpleDate = moment().format("YYYY-MM-DD");
+		let todaysData=[]
+
+		for (let i = 0; i < allLogs.length; i++) {
+			const log = allLogs[i];
+
+			let day = moment.unix(log.time).format("YYYY-MM-DD");
+
+			if (day === currentSimpleDate) {
+				let tmpObj = {
+					simpleDate: day,
+					unixTime: log.time,
+					painLevel: log.painLevel,
+				};
+
+				todaysData.push(tmpObj);
+			}
+		}
+
+		return {todaysData}
+
+	}
+
+
 	async function loadGraph() {
 		let data = [];
 
 		//Hämtar datan från firebase
-		const allCurrentLogs = await getAllCurrentLogs();
+		const allData = formatData(await getAllCurrentLogs())
+
+		const allCurrentLogs=allData.todaysData
 
 		for (let i = 0; i < allCurrentLogs.length; i++) {
 			const log = allCurrentLogs[i];
 			const timeObj=moment.unix(log.unixTime).toObject()
-			// data.push([log.unixTime, log.painLevel])
 			data.push([Date.UTC(timeObj.years,timeObj.months, timeObj.date , timeObj.hours, timeObj.minutes , timeObj.seconds), log.painLevel])
 		}
 		console.log(data);
-
-		
-
 
 		//Ser sjukt fult ut men sorterar iaf datan
 		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
@@ -61,8 +86,8 @@
 			},
 
 			xAxis: {
-				min: startTime,
-				max: endTime,
+				// min: startTime,
+				// max: endTime,
 				type: "datetime",
 				// dateTimeLabelFormats: {
 				// 	// don't display the dummy year

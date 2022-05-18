@@ -90,6 +90,7 @@ export async function getAllCurrentLogs() {
 		//days:[ {date:2022-05-21, dataPoints:[{time:1231441, pain:1}],  } ]
 	}
 	console.log(todaysData);
+	
 	//loop store recorded dates in array, if not there, created new array, otherwise put it in
 	//[time: 1213314, painLevel:1]
 

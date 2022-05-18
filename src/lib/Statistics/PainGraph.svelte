@@ -24,9 +24,11 @@
 		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
 
 		const startObj = moment().startOf('day').toObject()
-		const startTime=Date.UTC(startObj.years, startObj.months, startObj.date, 0, 1,1 )
-		const endTime = moment().endOf('day').unix();
-		console.log(startTime);
+		const startTime=Date.UTC(startObj.years, startObj.months, startObj.date, 0, 0,0 )
+		
+		const endObj=moment().endOf('day').toObject()
+		const endTime=Date.UTC(endObj.years, endObj.months, endObj.date, 23, 59,59 )
+		// console.log(startTime);
 
 		let config = {
 			legend:{
@@ -59,8 +61,8 @@
 			},
 
 			xAxis: {
-				min: startObj,
-				// max: endTime,
+				min: startTime,
+				max: endTime,
 				type: "datetime",
 				// dateTimeLabelFormats: {
 				// 	// don't display the dummy year

@@ -16,28 +16,29 @@
 			xLog.push(log.time)	
 			yLog.push(log.painLevel)	
 		}
-
-		console.log(xLog);
-		console.log(yLog);
 		const regression= new PolyReg(xLog, yLog, 5)
 
-		console.log(regression.toString(3));
-		console.log(regression.predict(moment().startOf('day').unix()));
+		// console.log(regression.toString(3));
+		// console.log(regression.predict(moment().startOf('day').unix()));
 		// const model=
 		// const terms=model.getTems()
 		// console.log(terms);
 
 		// console.log(logPoints);
 
-
-
 		const endTime=moment().endOf('day').unix()
 		const startTime=moment().startOf('day').unix()
 
+		const testTime=moment.unix(endTime).toObject()
+		console.log(testTime);
 
-		for (let i = startTime; i < endTime; i= i+ 10000) {
-			
-			points.push([i, 3])
+		for (let i = startTime; i < endTime; i= i+ 5000) {
+			const yVal=regression.predict(i)
+
+			const timeObj=moment.unix(i).toObject()
+			const date= Date.UTC(timeObj.years, timeObj.months, timeObj.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
+
+			points.push([date, yVal])
 			//y=x+3
 			
 		}
@@ -93,6 +94,12 @@
 		
 		let config = {
 			series: [
+				{
+					name: "",
+					// data: regressionDataPoints
+					data: todaysDatapoints
+					
+				},
 				{
 					name: "",
 					data: regressionDataPoints

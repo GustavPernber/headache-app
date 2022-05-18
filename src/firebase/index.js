@@ -8,7 +8,7 @@ import {
 	GoogleAuthProvider,
 	signInWithPopup,
 	signOut,
-	getAdditionalUserInfo
+	getAdditionalUserInfo,
 } from "firebase/auth";
 import {
 	getFirestore,
@@ -34,53 +34,47 @@ import {
 } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getPerformance } from "firebase/performance";
+import moment from "moment";
 
+let db;
 
-
-let db
-
-export function initFirebase(){
-	initializeApp(firebaseConfig)
-	db = getFirestore()
-
+export function initFirebase() {
+	initializeApp(firebaseConfig);
+	db = getFirestore();
 }
 
+export async function getAllCurrentLogs() {
+	
+	const querySnapshot = await getDocs(collection(db, "current-logs"));
 
-export async function getAllCurrentLogs(){
-
-	const querySnapshot=await getDocs(collection(db, 'current-logs'))
-
-	let allLogs=[]
-	querySnapshot.forEach(doc=>{
-		allLogs.push(doc.data())
-	})
-
+	let allLogs = [];
+	querySnapshot.forEach((doc) => {
+		allLogs.push(doc.data());
+	});
 
 	return allLogs
+
+
 }
 
-export async function addCurrentLog({painLevel, unixTime}){
+export async function addCurrentLog({ painLevel, unixTime }) {
+	try {
+		const docRef = await addDoc(collection(db, "current-logs"), {
+			painLevel: painLevel,
+			time: unixTime,
+		});
 
-    try {
-        const docRef=await addDoc(collection(db, 'current-logs'), {
-            painLevel:painLevel,
-            time:unixTime,
-        })
-		
-		console.log('Created document with id:', docRef.id)
+		console.log("Created document with id:", docRef.id);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 	}
-
 }
-
 
 // export async function addToDB(text){
 // 	let uid
 // 	authStore.subscribe(user=>{
 // 		uid=user.user.uid || null
-// 	})	
-
+// 	})
 
 // 	try {
 // 		const docRef=await addDoc(collection(db, 'message'), {
@@ -98,7 +92,7 @@ export async function addCurrentLog({painLevel, unixTime}){
 // 	let uid
 // 	authStore.subscribe(user=>{
 // 		uid=user.user.uid || null
-// 	})	
+// 	})
 // 	const docRef=collection(db, 'message')
 // 	const q= query(docRef, where('uid','==',uid))
 // 	const response = await getDocs(q)

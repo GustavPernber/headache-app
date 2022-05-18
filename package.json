@@ -23,6 +23,8 @@
   "dependencies": {
     "firebase": "^9.6.9",
     "highcharts": "^10.1.0",
+    "js-polynomial-regression": "^0.9.1",
+    "ml-regression-polynomial": "^2.2.0",
     "moment": "^2.29.3",
     "svelte-frappe-charts": "^1.9.2"
   }

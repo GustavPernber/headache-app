@@ -2,14 +2,38 @@
 	import highcharts from "./highcharts";
 	import { getAllCurrentLogs } from "../../firebase";
 	import moment from "moment";
-
+	// import PolyReg from "js-polynomial-regression";
+	import PolyReg from 'ml-regression-polynomial';
 
 	//REturnerar points för regressionfunktion
 	function getRegressionPoints(allLogs){
 		let points=[]
+		let xLog=[]
+		let yLog=[]
+
+		for (let i = 0; i < allLogs.length; i++) {
+			const log = allLogs[i];
+			xLog.push(log.time)	
+			yLog.push(log.painLevel)	
+		}
+
+		console.log(xLog);
+		console.log(yLog);
+		const regression= new PolyReg(xLog, yLog, 5)
+
+		console.log(regression.toString(3));
+		console.log(regression.predict(moment().startOf('day').unix()));
+		// const model=
+		// const terms=model.getTems()
+		// console.log(terms);
+
+		// console.log(logPoints);
+
+
 
 		const endTime=moment().endOf('day').unix()
 		const startTime=moment().startOf('day').unix()
+
 
 		for (let i = startTime; i < endTime; i= i+ 10000) {
 			

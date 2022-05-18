@@ -3,8 +3,22 @@
 	import { getAllCurrentLogs } from "../../firebase";
 	import moment from "moment";
 
-	//TAr in array med alla logs. returnar: {todaysData:[...], }
 
+	//REturnerar points för regressionfunktion
+	function getRegressionPoints(allLogs){
+		let points=[]
+
+		const endTime=moment().endOf('day').unix()
+		const startTime=moment().startOf('day').unix()
+
+		for (let i = startTime; i < endTime; i= i+ 10000) {
+			
+			points.push([i, 3])
+			//y=x+3
+			
+		}
+		return points
+	}
 
 	function getTodaysData(allLogs){
 
@@ -46,13 +60,23 @@
 		//Hämtar datan från firebase
 		const allData = await getAllCurrentLogs()
 		
-		const todaysDatapoints=getTodaysData(allData)
-	
-
 		const timeFrame=getTimeFrame()
-
-
+		
+		const todaysDatapoints=getTodaysData(allData)
+		const regressionDataPoints=getRegressionPoints(allData)
+		
+		
+		
 		let config = {
+			series: [
+				{
+					name: "",
+					data: regressionDataPoints
+					// data: todaysDatapoints
+					
+				},
+			],
+
 			legend:{
 				enabled:false,
 			},
@@ -108,13 +132,6 @@
 				},
 			},
 
-			series: [
-				{
-					name: "",
-					data: todaysDatapoints
-					
-				},
-			],
 
 			responsive: {
 				rules: [

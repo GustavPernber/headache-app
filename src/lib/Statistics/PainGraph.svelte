@@ -8,6 +8,21 @@
 	//REturnerar points för regressionfunktion
 	function getRegressionPoints(allLogs){
 		let points=[]
+
+		let logPoints
+		//applicera tidigare puinkter på idag
+		//beräkna regression utifrån alla punkter som är placerade på idag
+
+		//Gå  igenom alla logs
+		//Ta ut timma, minut, sekund. Skapa DAte.utc() av det men med samma dag som idag
+		//Flera punkter skapas därmed, varav alla ligger på idag. Skapa regression utifrån denna
+		//Starttime och endtime för regression blir därmed idag
+
+
+
+
+
+
 		let xLog=[]
 		let yLog=[]
 
@@ -18,14 +33,6 @@
 		}
 		const regression= new PolyReg(xLog, yLog, 5)
 
-		// console.log(regression.toString(3));
-		// console.log(regression.predict(moment().startOf('day').unix()));
-		// const model=
-		// const terms=model.getTems()
-		// console.log(terms);
-
-		// console.log(logPoints);
-
 		const endTime=moment().endOf('day').unix()
 		const startTime=moment().startOf('day').unix()
 
@@ -35,7 +42,7 @@
 		for (let i = startTime; i < endTime; i= i+ 5000) {
 			const yVal=regression.predict(i)
 
-			const timeObj=moment.unix(i).toObject()
+			const timeObj=moment.unix(i).toObject() 
 			const date= Date.UTC(timeObj.years, timeObj.months, timeObj.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
 
 			points.push([date, yVal])

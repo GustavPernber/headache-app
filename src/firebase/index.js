@@ -55,6 +55,8 @@ export async function getAllCurrentLogs() {
 			{ date: "2022-5-18, 6:13:12", painLevel: 4 },
 			{ date: "2022-5-18, 19:20:12", painLevel: 9 },
 			{ date: "2022-5-18, 12:30:12", painLevel: 2 },
+
+
 			{ date: "2022-5-7, 23:40:12", painLevel: 6 },
 			{ date: "2022-5-7, 19:13:12", painLevel: 1 },
 		],
@@ -62,11 +64,12 @@ export async function getAllCurrentLogs() {
 
 	let todaysData = [];
 	let currentSimpleDate=moment().format("YYYY-MM-DD");
+	
 
 	for (let i = 0; i < data.data.length; i++) {
 		const log = data.data[i];
 
-		let unixTime = moment(log.date).unix();
+		let unixTime = moment(log.date).utc().unix();
 
 		let day = moment.unix(unixTime).format("YYYY-MM-DD");
 		if (day===currentSimpleDate) {
@@ -90,14 +93,14 @@ export async function getAllCurrentLogs() {
 	//loop store recorded dates in array, if not there, created new array, otherwise put it in
 	//[time: 1213314, painLevel:1]
 
-	const querySnapshot = await getDocs(collection(db, "current-logs"));
+	// const querySnapshot = await getDocs(collection(db, "current-logs"));
 
-	let allLogs = [];
-	querySnapshot.forEach((doc) => {
-		allLogs.push(doc.data());
-	});
+	// let allLogs = [];
+	// querySnapshot.forEach((doc) => {
+	// 	allLogs.push(doc.data());
+	// });
 
-	return allLogs;
+	return todaysData;
 
 	// return newData
 }

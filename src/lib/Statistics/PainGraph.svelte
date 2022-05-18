@@ -11,11 +11,22 @@
 
 		for (let i = 0; i < allCurrentLogs.length; i++) {
 			const log = allCurrentLogs[i];
-			data.push([log.time, log.painLevel])
+			const timeObj=moment.unix(log.unixTime).toObject()
+			// data.push([log.unixTime, log.painLevel])
+			data.push([Date.UTC(timeObj.years,timeObj.months, timeObj.date , timeObj.hours, timeObj.minutes , timeObj.seconds), log.painLevel])
 		}
+		console.log(data);
+
+		
+
 
 		//Ser sjukt fult ut men sorterar iaf datan
 		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
+
+		const startObj = moment().startOf('day').toObject()
+		const startTime=Date.UTC(startObj.years, startObj.months, startObj.date, 0, 1,1 )
+		const endTime = moment().endOf('day').unix();
+		console.log(startTime);
 
 		let config = {
 			legend:{
@@ -48,12 +59,15 @@
 			},
 
 			xAxis: {
+				min: startObj,
+				// max: endTime,
 				type: "datetime",
-				dateTimeLabelFormats: {
-					// don't display the dummy year
-					month: "%e. %b",
-					year: "%b",
-				},
+				// dateTimeLabelFormats: {
+				// 	// don't display the dummy year
+				// 	month: "%e. %b",
+				// 	year: "%b",
+				// },
+
 				title: {
 					text: "Date",
 					style:{

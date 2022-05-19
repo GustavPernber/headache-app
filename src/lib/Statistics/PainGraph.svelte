@@ -4,6 +4,7 @@
 	import moment from "moment";
 	// import PolyReg from "js-polynomial-regression";
 	import PolyReg from 'ml-regression-polynomial';
+import { text } from "svelte/internal";
 
 	//REturnerar points för regressionfunktion
 	function getRegressionPoints(allLogs){
@@ -56,21 +57,8 @@
 
 	}
 
-	function getTimeFrame(){
-
-		const startObj = moment().startOf('day').toObject()
-		const startTime=Date.UTC(startObj.years, startObj.months, startObj.date, 0, 0,0 )
-		
-		const endObj=moment().endOf('day').toObject()
-		const endTime=Date.UTC(endObj.years, endObj.months, endObj.date, 23, 59,59 )
-
-		return ({end:endTime, start:startTime})
-	}
-
 	async function loadGraph() {
-		let data = [];
 
-		//Hämtar datan från firebase
 		const allData = await getAllCurrentLogs()
 		
 		const todaysDatapoints=getTodaysData(allData)
@@ -79,30 +67,39 @@
 		
 		
 		let config = {
+			colors:['#4ABEA9', "#CD7360"],
 			series: [
 				{
-					name: "",
-					data: todaysDatapoints
+					name: "Todays logs",
+					data: todaysDatapoints,
 					
 				},
 				{
-					name: "",
-					data: regressionDataPoints
+					name: "All time average",
+					data: regressionDataPoints,
+					marker: {
+						enabled: false,
+					},
 					
 				},
 			],
 
 			legend:{
-				enabled:false,
+
+				itemStyle:{
+					color:'#D2D2D2',
+				},
+				enabled:true,
 			},
 
 			credits:{
 				enabled:false
 			},
+
 			chart: {
 				backgroundColor: "rgba(0, 0,0, 0)",
 				type: "spline",
-				height:200,
+				height:230,
 			},
 
 			title: {
@@ -124,8 +121,7 @@
 			xAxis: {
 				min:0,
 				max:24,
-				// min: timeFrame.start,
-				// max: timeFrame.end,
+
 				// type: "datetime",
 				// dateTimeLabelFormats: {
 				// 	// don't display the dummy year
@@ -134,7 +130,7 @@
 				// },
 
 				title: {
-					text: "Date",
+					text: "Hour of day",
 					style:{
 						color:"#D2D2D2"
 					}
@@ -142,11 +138,11 @@
 			},
 
 			plotOptions: {
-				series: {
-					marker: {
-						enabled: true,
-					},
-				},
+				// series: {
+				// 	marker: {
+				// 		enabled: true,
+				// 	},
+				// },
 			},
 
 

@@ -26,30 +26,24 @@
 			const log = allLogs[i];
 			const timeObj=moment.unix(log.time).toObject() 
 			const date= Date.UTC(currentDate.years, currentDate.months, currentDate.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
-			tmpArray.push([date, log.painLevel])
-
-			logPoints.x.push(date)
+			tmpArray.push([timeObj.hours+(timeObj.minutes/60)+(timeObj.seconds/60/60), log.painLevel])
+			logPoints.x.push(timeObj.hours+(timeObj.minutes/60)+(timeObj.seconds/60/60))
 			logPoints.y.push(log.painLevel)
 		}
-		console.log(logPoints);
+		console.log('log', logPoints);
+		console.log('temp', tmpArray);
+
 		const regression= new PolyReg(logPoints.x, logPoints.y, 5)
 		const startTime=Date.UTC(currentDate.years, currentDate.months, currentDate.date, 0, 0,0)
 		// const endTime=Date.UTC(currentDate.years, currentDate.months, currentDate.date, 23, 59,59)
 		const endTime=1652997599000
-		console.log(startTime);
-		console.log(endTime);
-		console.log(endTime-startTime);
-		
-		console.log(regPoints.length);
-		
 
-		for (let i=startTime;  i<endTime; i = i+ 5000000) {
+
+		for (let i=0;  i<24; i = i+ 1) {
 			const yVal=regression.predict(i)
 			regPoints.push([i, yVal])
 			
 		}
-		console.log(regPoints.length);
-		console.log(logPoints);
 		return {logPoints:tmpArray, regPoints}
 
 
@@ -180,8 +174,8 @@
 					}
 				},
 
-				min: 0,
-				max:10
+				// min: 0,
+				// max:10
 			},
 
 			xAxis: {

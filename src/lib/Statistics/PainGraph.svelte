@@ -85,9 +85,9 @@ import { text } from "svelte/internal";
 			],
 
 			legend:{
+
 				itemStyle:{
-					colour:'rgb(1,1, 1)',
-					fill:'#ffffff'
+					color:'#D2D2D2',
 				},
 				enabled:true,
 			},

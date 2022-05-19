@@ -106,10 +106,11 @@
 <div
 	class:swipeUp
 	class:toUnmount
-	class=" text-white  grid grid-cols-1 grid-rows-[2rem_1fr_2rem] wrapper w-full bg-appDark-300 fixed bottom-0 top-6 rounded-t-2xl z-20 p-5"
+	class=" text-white  grid grid-cols-1 grid-rows-[2rem_1fr_3rem] wrapper w-full bg-appDark-300 fixed bottom-0 top-6 rounded-t-2xl z-20 p-5"
 >
 	<CurrentLogTopNav {toggleCurrentLog} />
-	<div>
+
+	<div class=" flex flex-col pt-24 gap-24 ">
 		<div class="flex flex-col">
 			<h1 class="self-center text-2xl py-3">How's the pain?</h1>
 

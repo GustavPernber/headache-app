@@ -15,7 +15,6 @@
 	import { addCurrentLog } from "../../firebase";
 
 	let swipeUp = true;
-	let showTimeInput = false;
 
 	function handleTimeButton(value) {
 		for (let i = 0; i < $currentLogStore.timeButtons.length; i++) {
@@ -46,11 +45,10 @@
 
 	function handleSubmit() {
 		console.log("submitting...");
-
+		toggleCurrentLog()
 		let unixTime;
 
 		let selected = $currentLogStore.timeButtons.find((obj) => obj.selected);
-		console.log(selected);
 
 		if (selected.value === "custom") {
 			console.log(selected.time);

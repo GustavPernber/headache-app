@@ -7,9 +7,10 @@
 
 	//REturnerar points för regressionfunktion
 	function getRegressionPoints(allLogs){
-		let points=[]
+		let regPoints=[]
 
-		let logPoints
+		let logPoints={x:[], y:[]}
+		let tmpArray=[]
 		//applicera tidigare puinkter på idag
 		//beräkna regression utifrån alla punkter som är placerade på idag
 
@@ -19,37 +20,70 @@
 		//Starttime och endtime för regression blir därmed idag
 
 
-
-
-
-
-		let xLog=[]
-		let yLog=[]
-
+		let currentDate = moment().toObject()
+		console.log(currentDate);
 		for (let i = 0; i < allLogs.length; i++) {
 			const log = allLogs[i];
-			xLog.push(log.time)	
-			yLog.push(log.painLevel)	
+			const timeObj=moment.unix(log.time).toObject() 
+			const date= Date.UTC(currentDate.years, currentDate.months, currentDate.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
+			tmpArray.push([date, log.painLevel])
+
+			logPoints.x.push(date)
+			logPoints.y.push(log.painLevel)
 		}
-		const regression= new PolyReg(xLog, yLog, 5)
+		console.log(logPoints);
+		const regression= new PolyReg(logPoints.x, logPoints.y, 5)
+		const startTime=Date.UTC(currentDate.years, currentDate.months, currentDate.date, 0, 0,0)
+		// const endTime=Date.UTC(currentDate.years, currentDate.months, currentDate.date, 23, 59,59)
+		const endTime=1652997599000
+		console.log(startTime);
+		console.log(endTime);
+		console.log(endTime-startTime);
+		
+		console.log(regPoints.length);
+		
 
-		const endTime=moment().endOf('day').unix()
-		const startTime=moment().startOf('day').unix()
-
-		const testTime=moment.unix(endTime).toObject()
-		console.log(testTime);
-
-		for (let i = startTime; i < endTime; i= i+ 5000) {
+		for (let i=startTime;  i<endTime; i = i+ 5000000) {
 			const yVal=regression.predict(i)
-
-			const timeObj=moment.unix(i).toObject() 
-			const date= Date.UTC(timeObj.years, timeObj.months, timeObj.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
-
-			points.push([date, yVal])
-			//y=x+3
+			regPoints.push([i, yVal])
 			
 		}
-		return points
+		console.log(regPoints.length);
+		console.log(logPoints);
+		return {logPoints:tmpArray, regPoints}
+
+
+
+
+
+
+		// let xLog=[]
+		// let yLog=[]
+
+		// for (let i = 0; i < allLogs.length; i++) {
+			// 	const log = allLogs[i];
+			// 	xLog.push(log.time)	
+			// 	yLog.push(log.painLevel)	
+			// }
+			// const regression= new PolyReg(xLog, yLog, 5)
+			// const startTime=moment().startOf('day').unix()
+
+		// const endTime=moment().endOf('day').unix()
+
+		// const testTime=moment.unix(endTime).toObject()
+		// console.log(testTime);
+
+		// for (let i = startTime; i < endTime; i= i+ 5000) {
+		// 	const yVal=regression.predict(i)
+
+		// 	const timeObj=moment.unix(i).toObject() 
+		// 	const date= Date.UTC(timeObj.years, timeObj.months, timeObj.date, timeObj.hours, timeObj.minutes,timeObj.seconds )
+
+		// 	points.push([date, yVal])
+		// 	//y=x+3
+			
+		// }
+		// return points
 	}
 
 	function getTodaysData(allLogs){
@@ -101,15 +135,21 @@
 		
 		let config = {
 			series: [
+				// {
+				// 	name: "",
+				// 	// data: regressionDataPoints
+				// 	data: todaysDatapoints
+					
+				// },
 				{
 					name: "",
-					// data: regressionDataPoints
-					data: todaysDatapoints
+					data: regressionDataPoints.regPoints
+					// data: todaysDatapoints
 					
 				},
 				{
 					name: "",
-					data: regressionDataPoints
+					data: regressionDataPoints.logPoints
 					// data: todaysDatapoints
 					
 				},

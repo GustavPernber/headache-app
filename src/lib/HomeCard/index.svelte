@@ -67,7 +67,7 @@
         </h1>
 
 
-        <button on:click={handleCurrentlog} class="text-lg shadow-lg w-56 h-14 text-white rounded-full bg-gradient-to-r from-green-100 to-green-200">
+        <button on:click={handleCurrentlog} class="text-lg font-bold shadow-lg w-56 h-14 text-white rounded-full bg-gradient-to-r from-green-100 to-green-200">
             Current headache
         </button>
 

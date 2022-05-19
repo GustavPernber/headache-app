@@ -5,7 +5,10 @@ Länk till graf:
 https://api.highcharts.com/highcharts/
 
 Länk till date: 
-https://svelte.dev/repl/417334165e9247b4b64c94fe7547e257?version=3.38.2 
+https://svelte.dev/repl/417334165e9247b4b64c94fe7547e257?version=3.38.2
+
+PolyReg
+https://www.npmjs.com/package/ml-regression-polynomial
 
 # create-svelte
 

@@ -2,9 +2,40 @@
 	import highcharts from "./highcharts";
 	import { getAllCurrentLogs } from "../../firebase";
 	import moment from "moment";
+	// import PolyReg from "js-polynomial-regression";
+	import PolyReg from 'ml-regression-polynomial';
 
-	//TAr in array med alla logs. returnar: {todaysData:[...], }
-	function formatData(allLogs){
+	//REturnerar points för regressionfunktion
+	function getRegressionPoints(allLogs){
+		let regPoints=[]
+
+		let logPoints={x:[], y:[]}
+		let tmpArray=[]
+		//Spridningsdiagram, se till att dom e tillräckligt utspridda för att visas
+
+		for (let i = 0; i < allLogs.length; i++) {
+
+			const log = allLogs[i];
+
+			const timeObj=moment.unix(log.time).toObject() 
+			const hourTime=timeObj.hours+(timeObj.minutes/60)+(timeObj.seconds/60/60)
+
+			logPoints.x.push(hourTime)
+			logPoints.y.push(log.painLevel)
+		}
+
+		const regression= new PolyReg(logPoints.x, logPoints.y, 4)
+
+		for (let i=0;  i<24; i = i+ 1) {
+			const yVal=regression.predict(i)
+			regPoints.push([i, yVal])
+			
+		}
+		return regPoints
+
+	}
+
+	function getTodaysData(allLogs){
 
 		let currentSimpleDate = moment().format("YYYY-MM-DD");
 		let todaysData=[]
@@ -15,47 +46,52 @@
 			let day = moment.unix(log.time).format("YYYY-MM-DD");
 
 			if (day === currentSimpleDate) {
-				let tmpObj = {
-					simpleDate: day,
-					unixTime: log.time,
-					painLevel: log.painLevel,
-				};
-
-				todaysData.push(tmpObj);
+				const timeObj=moment.unix(log.time).toObject()
+				todaysData.push([timeObj.hours+(timeObj.minutes/60)+(timeObj.seconds/60/60), log.painLevel])
 			}
 		}
 
-		return {todaysData}
+		todaysData.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
+		return todaysData
 
 	}
 
-
-	async function loadGraph() {
-		let data = [];
-
-		//Hämtar datan från firebase
-		const allData = formatData(await getAllCurrentLogs())
-
-		const allCurrentLogs=allData.todaysData
-
-		for (let i = 0; i < allCurrentLogs.length; i++) {
-			const log = allCurrentLogs[i];
-			const timeObj=moment.unix(log.unixTime).toObject()
-			data.push([Date.UTC(timeObj.years,timeObj.months, timeObj.date , timeObj.hours, timeObj.minutes , timeObj.seconds), log.painLevel])
-		}
-		console.log(data);
-
-		//Ser sjukt fult ut men sorterar iaf datan
-		data.sort((a, b)=> a[0] > b[0] ? 1 :((b[0] > a[0]) ? -1 : 0))
+	function getTimeFrame(){
 
 		const startObj = moment().startOf('day').toObject()
 		const startTime=Date.UTC(startObj.years, startObj.months, startObj.date, 0, 0,0 )
 		
 		const endObj=moment().endOf('day').toObject()
 		const endTime=Date.UTC(endObj.years, endObj.months, endObj.date, 23, 59,59 )
-		// console.log(startTime);
 
+		return ({end:endTime, start:startTime})
+	}
+
+	async function loadGraph() {
+		let data = [];
+
+		//Hämtar datan från firebase
+		const allData = await getAllCurrentLogs()
+		
+		const todaysDatapoints=getTodaysData(allData)
+		const regressionDataPoints=getRegressionPoints(allData)
+		
+		
+		
 		let config = {
+			series: [
+				{
+					name: "",
+					data: todaysDatapoints
+					
+				},
+				{
+					name: "",
+					data: regressionDataPoints
+					
+				},
+			],
+
 			legend:{
 				enabled:false,
 			},
@@ -86,9 +122,11 @@
 			},
 
 			xAxis: {
-				// min: startTime,
-				// max: endTime,
-				type: "datetime",
+				min:0,
+				max:24,
+				// min: timeFrame.start,
+				// max: timeFrame.end,
+				// type: "datetime",
 				// dateTimeLabelFormats: {
 				// 	// don't display the dummy year
 				// 	month: "%e. %b",
@@ -111,13 +149,6 @@
 				},
 			},
 
-			series: [
-				{
-					name: "",
-					data: data
-					
-				},
-			],
 
 			responsive: {
 				rules: [
